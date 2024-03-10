@@ -15,6 +15,7 @@ pub mod ui;
 use std::ops::{Index, IndexMut};
 
 use egui::{ahash::HashSet, Pos2};
+use itertools::Itertools;
 use slab::Slab;
 
 impl<T> Default for Snarl<T> {
@@ -444,6 +445,15 @@ impl<T> Snarl<T> {
     #[must_use]
     pub fn out_pin(&self, pin: OutPinId) -> OutPin {
         OutPin::new(self, pin)
+    }
+
+    /// Returns input nodes ids.
+    pub fn input_nodes(&self, node: NodeId) -> impl Iterator<Item = NodeId> + '_ {
+        self.wires
+            .iter()
+            .filter(move |wire| wire.in_pin.node == node)
+            .map(|wire| wire.out_pin.node)
+            .unique()
     }
 }
 

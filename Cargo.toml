@@ -19,6 +19,7 @@ serde = { version = "1.0", features = ["derive"], optional = true }
 tiny-fn = { version = "0.1.6" }
 
 egui-probe = { version = "0.2", features = ["derive"], optional = true }
+itertools = "0.12.1"
 
 [dev-dependencies]
 eframe = { version = "0.26", features = ["serde", "persistence"] }
